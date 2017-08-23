@@ -65,53 +65,19 @@ namespace MVCAPI.Controllers
                 // return RedirectToAction(nameof(Login));
                 return BadRequest();
             }
-            var a1 = info.ProviderKey;
-            var a2 = info.Principal;
-            var a6 = a2.Claims;
-
-            //if (result.Succeeded)
-            //{
-
-            //    var claims = new[]
-            //    {
-            //  new Claim(JwtRegisteredClaimNames.Sub, user.Email),
-            //  new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
-            //};
+          
+            var clams = info.Principal.Claims;
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("0123456789ABCDEF"));
                 var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
-                var token = new JwtSecurityToken("http://mycodecamp.io",
-                  "http://mycodecamp.io",
-                  a6,
+                var token = new JwtSecurityToken("http://bipinpaul.com.np",
+                  "http://bipinpaul.com.np",
+                  clams,
                   expires: DateTime.Now.AddDays(30),
                   signingCredentials: creds);
 
                 return Ok(new { token = new JwtSecurityTokenHandler().WriteToken(token) });
-            
-
-            // Sign in the user with this external login provider if the user already has a login.
-            //var result = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey, isPersistent: false, bypassTwoFactor: true);
-            //if (result.Succeeded)
-            //{
-            //    _logger.LogInformation("User logged in with {Name} provider.", info.LoginProvider);
-            //    return RedirectToLocal(returnUrl);
-            //}
-            //if (result.IsLockedOut)
-            //{
-            //    return RedirectToAction(nameof(Lockout));
-            //}
-            //else
-            //{
-            //    // If the user does not have an account, then ask the user to create an account.
-            //    ViewData["ReturnUrl"] = returnUrl;
-            //    ViewData["LoginProvider"] = info.LoginProvider;
-            //    var email = info.Principal.FindFirstValue(ClaimTypes.Email);
-            //    return View("ExternalLogin", new ExternalLoginViewModel { Email = email });
-            //}
-           
         }
-
-
     }
 }

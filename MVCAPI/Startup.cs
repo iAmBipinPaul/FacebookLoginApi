@@ -48,8 +48,8 @@ namespace MVCAPI
 
            cfg.TokenValidationParameters = new TokenValidationParameters()
            {
-               ValidIssuer = "http://mycodecamp.io",
-               ValidAudience = "http://mycodecamp.io",
+               ValidIssuer = "http://bipinpaul.com.np",
+               ValidAudience = "http://bipinpaul.com.np",
                IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("0123456789ABCDEF"))
            };
 
