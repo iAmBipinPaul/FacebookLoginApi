@@ -11,6 +11,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
 using System.Text;
 using Microsoft.Extensions.Configuration;
+using System.Security.Claims;
 
 namespace MVCAPI.Controllers
 {
@@ -67,13 +68,27 @@ namespace MVCAPI.Controllers
             }
           
             var clams = info.Principal.Claims;
+            //  var res = clams.ToList();
+            var nameidentifier = clams.FirstOrDefault(x => x.Type == ClaimTypes.NameIdentifier).Value;
+            var emailaddress = clams.FirstOrDefault(x => x.Type == ClaimTypes.Email).Value;
+            var name = clams.FirstOrDefault(x => x.Type == ClaimTypes.Name).Value;
+            var givenname = clams.FirstOrDefault(x => x.Type == ClaimTypes.GivenName).Value;
+            var surname = clams.FirstOrDefault(x => x.Type == ClaimTypes.Surname).Value;
+
+            var claims = new[]
+            {
+              new Claim(JwtRegisteredClaimNames.Email, emailaddress),
+              new Claim(JwtRegisteredClaimNames.NameId,nameidentifier),
+              new Claim(JwtRegisteredClaimNames.GivenName,givenname),
+              new Claim(JwtRegisteredClaimNames.FamilyName,surname),  
+            };
 
             var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("0123456789ABCDEF"));
                 var creds = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
 
                 var token = new JwtSecurityToken("http://bipinpaul.com.np",
                   "http://bipinpaul.com.np",
-                  clams,
+                  claims,
                   expires: DateTime.Now.AddDays(30),
                   signingCredentials: creds);
 
