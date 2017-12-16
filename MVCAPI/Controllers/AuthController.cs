@@ -16,6 +16,7 @@ using System.Security.Claims;
 namespace MVCAPI.Controllers
 {
     //[Produces("application/json")]
+    //some thing
     [Route("[controller]/[action]")]
     public class AuthController : Controller
     {
