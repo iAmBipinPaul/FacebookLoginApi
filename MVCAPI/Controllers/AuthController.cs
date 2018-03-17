@@ -92,7 +92,6 @@ namespace MVCAPI.Controllers
                   claims,
                   expires: DateTime.Now.AddDays(30),
                   signingCredentials: creds);
-var token ="something";
                 return Ok(token);
         }
     }
