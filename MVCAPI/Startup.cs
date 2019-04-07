@@ -40,7 +40,7 @@ namespace MVCAPI
             });
 
             services.AddAuthentication()
-     
+
        .AddJwtBearer(cfg =>
        {
            cfg.RequireHttpsMetadata = false;
